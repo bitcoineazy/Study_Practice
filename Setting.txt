@@ -1,0 +1,2 @@
+admin C:\Users\AndroidS\PycharmProjects\File_M\new_dir_test
+noneme C:\Users\AndroidS\PycharmProjects\File_M\hi\world
