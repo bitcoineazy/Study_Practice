@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="Архивы и пользователи">
-      <change beforePath="$PROJECT_DIR$/func/Archive_create.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Archive_create.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/Unarchive.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Unarchive.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="добавил описание команд">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -157,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635423257575</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="добавил описание команд">
+      <created>1635424306415</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1635424306415</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,7 +179,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Архивы и пользователи" />
-    <option name="LAST_COMMIT_MESSAGE" value="Архивы и пользователи" />
+    <MESSAGE value="добавил описание команд" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавил описание команд" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
