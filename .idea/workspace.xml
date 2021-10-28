@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/func/Archive_create.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/func/Archive_form.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/func/Nuarchive_form.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/func/Unarchive.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Setting.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Setting.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sistem_var.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sistem_var.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/Cutfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Cutfile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/__init__.py" afterDir="false" />
+    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="Архивы и пользователи">
+      <change beforePath="$PROJECT_DIR$/func/Archive_create.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Archive_create.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/Unarchive.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Unarchive.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,6 +150,14 @@
       <option name="presentableId" value="Default" />
       <updated>1635349406539</updated>
     </task>
+    <task id="LOCAL-00001" summary="Архивы и пользователи">
+      <created>1635423257575</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1635423257575</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,20 +171,12 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Архивы и пользователи" />
+    <option name="LAST_COMMIT_MESSAGE" value="Архивы и пользователи" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Start.py</url>
-          <line>21</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Start.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
