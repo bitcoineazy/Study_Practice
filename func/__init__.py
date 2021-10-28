@@ -10,3 +10,7 @@ from func.Delfile import *
 from func.Move_file import *
 from func.Rename_file import *
 from func.Exit_from_programm import *
+from func.Archive_create import *
+from func.Archive_form import *
+from func.Nuarchive_form import *
+from func.Unarchive import *

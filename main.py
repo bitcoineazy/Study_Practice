@@ -11,7 +11,8 @@ HELP = f"""Файловый менеджер - программа для про�
 """
 comand_name = ['ctdir', 'getcom', "Exit", 'help', 'cominf',
                'deldir', 'cdd', 'lsdir', 'ctfile', 'nano2',
-               'cutfile', 'delfile', 'mvfile', 'refile']
+               'cutfile', 'delfile', 'mvfile', 'refile', 'ctarch',
+               'unarch', 'unafor']
 COMINF = """-----
 help: общая справка
 getcom: показывает доступные команды
