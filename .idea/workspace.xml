@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="добавил описание команд">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="Изменил .gitignore">
+      <change afterPath="$PROJECT_DIR$/Python/ThreadedServer/port_validation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/ThreadedServer/threaded_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/EchoServer/serv_my.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/EchoServer/serv_my.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ThreadedServer/port_scanner.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/ThreadedServer/port_scanner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="205znvdsCLSDbqkDUeSsRa0GPM1" />
   <component name="ProjectViewState">
@@ -31,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -163,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635424306415</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Изменил .gitignore">
+      <created>1635440769981</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1635440769981</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,16 +182,50 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="File_M" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Архивы и пользователи" />
     <MESSAGE value="добавил описание команд" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавил описание команд" />
+    <MESSAGE value="Изменил .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Изменил .gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
