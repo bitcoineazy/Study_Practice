@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="Изменил .gitignore">
-      <change afterPath="$PROJECT_DIR$/Python/ThreadedServer/port_validation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python/ThreadedServer/threaded_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/EchoServer/serv_my.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/EchoServer/serv_my.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/ThreadedServer/port_scanner.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/ThreadedServer/port_scanner.py" afterDir="false" />
-    </list>
+    <list default="true" id="ef100efb-e6d6-4586-bc49-e89058f104b6" name="Changes" comment="Файловый менеджер" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635440769981</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Файловый менеджер">
+      <created>1635620007964</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635620007964</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -225,7 +226,8 @@
     <MESSAGE value="Архивы и пользователи" />
     <MESSAGE value="добавил описание команд" />
     <MESSAGE value="Изменил .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Изменил .gitignore" />
+    <MESSAGE value="Файловый менеджер" />
+    <option name="LAST_COMMIT_MESSAGE" value="Файловый менеджер" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
