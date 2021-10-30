@@ -2,16 +2,32 @@ import os
 import socket
 import sys
 from threading import Thread
-from upp_pack import SocketMethods
+from utilities import SocketMethods
+from validators import ipv4
 
 sock = socket.socket()
 
-address = input('Input address: ')
+
+def port_validation(port):
+    try:
+        if 1023 < int(port) < 65536:
+            return True
+        else:
+            return False
+    except ValueError:
+        return False
+
+
+address = input('Input IP address: ')
 if not address:
     address = 'localhost'
+elif not ipv4(address):
+    print('Wrong IP address')
 port = input('Input port: ')
 if not port:
     port = 9000
+elif not port_validation(port):
+    print('Wrong port input\nTry ports with number 1024 - 65535')
 else:
     port = int(port)
 
@@ -28,7 +44,7 @@ SocketMethods.send_text(sock, token)
 connection_alive = True
 
 
-def custom_input() -> str:
+def custom_input():
     result = ''
     if os.name == 'nt':
         import msvcrt

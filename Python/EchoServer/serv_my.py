@@ -3,47 +3,13 @@ import random
 import socket
 from threading import Thread
 import logging
-from upp_pack import COLORS, EMOJIS, EMOJIS_PATTERN, SocketMethods, Security
+from utilities import COLORS, EMOJIS, EMOJIS_PATTERN, SocketMethods, Security
 
 logging.basicConfig(filename='server_logs.log', level=logging.INFO)
 
 
-def save_users():
-    with open('users.json', 'w') as file:
-        json.dump(users, file)
-
-
-def save_logins():
-    with open('logins.json', 'w') as file:
-        json.dump(logins, file)
-
-
-users = {}
-logins = {}
-connections_list = []
-
-
-class CommonFunctions:
-    @classmethod
-    def send_msg_all(cls, message):
-        [i.send_msg(message) for i in connections_list]
-
-    @staticmethod
-    def service_msg(user: 'ClientThread', message):
-        [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in connections_list if i != user]
-
-    @staticmethod
-    def _emoji_replace(match):
-        mg = match.group(1)
-        return EMOJIS.get(mg, f':{mg}:')
-
-    @classmethod
-    def emoji_replace(cls, s: str):
-        return EMOJIS_PATTERN.sub(cls._emoji_replace, s)
-
-
 class ClientThread(Thread):
-    def __init__(self, connection: socket.socket, address: tuple):
+    def __init__(self, connection, address):
         super().__init__(daemon=True)
         self.connected = True
         self.conn = connection
@@ -87,6 +53,7 @@ class ClientThread(Thread):
             self.send_msg(f'Closing connection {self.addr} {" because of " + reason if reason else ""}')
             self.send_msg('//close')
             self.conn.close()
+        print(f'Connection closed {self.addr} {" - " + reason if reason else ""}')
         logging.info(f'Connection closed {self.addr} {" - " + reason if reason else ""}')
         self.connected = False
         if self in connections_list:
@@ -107,14 +74,46 @@ class ClientThread(Thread):
     def run(self):
         connections_list.append(self)
         self.send_msg(f'{self.username}, welcome to chat')
-        CommonFunctions.service_msg(self, 'joined the chat')
+        service_msg(self, 'joined the chat')
 
         while True and self.connected:
             message = self.receive_msg()
             if message == 'exit':
                 self.close_connection('user exit')
                 break
-            CommonFunctions.send_msg_all(f'{self.color}{self.username}\33[0m: {CommonFunctions.emoji_replace(message)}')
+            send_msg_all(f'{self.color}{self.username}\33[0m: {emoji_replace(message)}')
+
+
+def save_users():
+    with open('users.json', 'w') as file:
+        json.dump(users, file)
+
+
+def save_logins():
+    with open('logins.json', 'w') as file:
+        json.dump(logins, file)
+
+
+users = {}
+logins = {}
+connections_list = []
+
+
+def send_msg_all(message):
+    [i.send_msg(message) for i in connections_list]
+
+
+def service_msg(user: 'ClientThread', message):
+    [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in connections_list if i != user]
+
+
+def _emoji_replace(match):
+    mg = match.group(1)
+    return EMOJIS.get(mg, f':{mg}:')
+
+
+def emoji_replace(cls, s):
+    return EMOJIS_PATTERN.sub(cls._emoji_replace, s)
 
 
 if __name__ == '__main__':
@@ -126,8 +125,8 @@ if __name__ == '__main__':
             break
         except OSError:
             port += 1
-    logging.info(f'Started on {socket.gethostbyname(socket.gethostname())}:{port}')
     print(f'Started on {socket.gethostbyname(socket.gethostname())}:{port}')
+    logging.info(f'Started on {socket.gethostbyname(socket.gethostname())}:{port}')
     sock.listen(10)
 
     with open('users.json', 'r') as file:
@@ -137,6 +136,7 @@ if __name__ == '__main__':
     while True:
         # Создать новые потоки для пользователей
         conn, addr = sock.accept()
+        print(f'Opening connection {addr} ')
         logging.info(f'Opening connection {addr} ')
         thread = ClientThread(conn, addr)
 
