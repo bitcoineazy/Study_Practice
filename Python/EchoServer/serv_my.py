@@ -25,20 +25,20 @@ connections_list = []
 
 class CommonFunctions:
     @classmethod
-    def send_msg_all(cls, message: str):
+    def send_msg_all(cls, message):
         [i.send_msg(message) for i in connections_list]
 
     @staticmethod
-    def service_msg(user: 'ClientThread', message: str):
+    def service_msg(user: 'ClientThread', message):
         [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in connections_list if i != user]
 
     @staticmethod
-    def _emoji_replace(match) -> str:
+    def _emoji_replace(match):
         mg = match.group(1)
         return EMOJIS.get(mg, f':{mg}:')
 
     @classmethod
-    def emoji_replace(cls, s: str) -> str:
+    def emoji_replace(cls, s: str):
         return EMOJIS_PATTERN.sub(cls._emoji_replace, s)
 
 
@@ -82,7 +82,7 @@ class ClientThread(Thread):
         users[self.username]['token'] = new_token
         save_users()
 
-    def close_connection(self, reason: str = '', only_server: bool = False):
+    def close_connection(self, reason='', only_server=False):
         if not only_server:
             self.send_msg(f'Closing connection {self.addr} {" because of " + reason if reason else ""}')
             self.send_msg('//close')
@@ -92,7 +92,7 @@ class ClientThread(Thread):
         if self in connections_list:
             connections_list.remove(self)
 
-    def send_msg(self, message: str):
+    def send_msg(self, message):
         if self.connected:
             SocketMethods.send_text(self.conn, message)
 
@@ -135,6 +135,7 @@ if __name__ == '__main__':
     with open('logins.json', 'r') as file:
         logins = json.load(file)
     while True:
+        # Создать новые потоки для пользователей
         conn, addr = sock.accept()
         logging.info(f'Opening connection {addr} ')
         thread = ClientThread(conn, addr)
