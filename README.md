@@ -1,5 +1,14 @@
 # Study_Practice
+
 Репозиторий для практикумов
+
+[«Файловый менеджер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/FileManager) — написание программы, имитирующей работу файлового менеджера операционной системы.
+
+[«TCP-клиент и эхо-сервер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/EchoServer) — создание клиент-серверной архитектуры по принципу эхо-сервера.
+
+[«Создание простого многопоточного сервера»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/ThreadedServer) — реализация сервера с возможностью многопоточной работы с клиентом.
+
+<hr>
 
 ## Контрольные вопросы
 
