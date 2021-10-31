@@ -8,6 +8,7 @@
 
 [«Создание простого многопоточного сервера»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/ThreadedServer) — реализация сервера с возможностью многопоточной работы с клиентом.
 
+---
 
 ## Контрольные вопросы
 
