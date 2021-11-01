@@ -20,7 +20,7 @@ class Server:
         sock.bind(('', self.server_port))
         sock.listen(5)
         self.sock = sock
-        logging.info(f"Сервер успешно запущен, слушаем порт {self.server_port}")
+        logging.info(f"Старт сервера, порт: {self.server_port}")
         while True:
             conn, addr = self.sock.accept()
             Thread(target=self.client_logic, args=(conn, addr)).start()
@@ -28,11 +28,11 @@ class Server:
             self.connections.append(conn)
 
     def broadcast(self, msg, conn, username):
-        # Отправка сообщений клиентам (чат)
-        for sock in self.connections:
-            if sock != conn:
-                sock.send(pickle.dumps(["message", msg, username]))
-                logging.info(f"Отправка данных клиенту {sock.getsockname()}: {msg}")
+        # Отправка сообщений всем клиентам (чат)
+        for connection in self.connections:
+            if connection != conn:
+                connection.send(pickle.dumps(["message", msg, username]))
+                logging.info(f"Отправка данных клиенту {connection.getsockname()}: {msg}")
 
     def client_logic(self, conn, address):
         # Поток прослушивания клиентов
@@ -50,6 +50,20 @@ class Server:
                 logging.info(f"Прием данных от клиента '{username}_{address[1]}': {data}")
                 if status == "message":
                     self.broadcast(data, conn, username)
+                elif status == "shutdown":
+                    for connection in self.connections:
+                        connection.send(pickle.dumps(["message", f"{username} выключил сервер", "~SERVER~"]))
+                        connection.close()
+                    logging.info(f"Отключение сервера по команде")
+                    self.sock.close()
+                    break
+                elif status == "exit":
+                    logging.info(f"Закрытие соединения с клиентом {username}")
+                    conn.close()
+                    self.connections.remove(conn)
+                    for connection in self.connections:
+                        connection.send(pickle.dumps(["message", f"{username} отключился от сервера", "~SERVER~"]))
+                    break
             else:
                 # Закрываем соединение
                 conn.close()
@@ -122,10 +136,10 @@ def is_available_port(port):
         sock = socket.socket()
         sock.bind(("", port))
         sock.close()
-        print(f"Порт {port} свободен")
+        logging.info(f"Порт {port} свободен")
         return True
     except OSError:
-        print(f"Порт {port} занят")
+        logging.info(f"Порт {port} занят")
         return False
 
 

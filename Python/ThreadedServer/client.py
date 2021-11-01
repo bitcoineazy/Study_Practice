@@ -31,8 +31,9 @@ class Client:
     def server_sync(self):
         # Вызов функций при получении команд (статусов) от сервера
         Thread(target=self.receive_data).start()
+        print("'exit' - разорвать соединение, 'shutdown' - выключить сервер")
         self.status = None
-        while self.status != 'finish':
+        while True:
             if self.status:
                 if self.status == "auth":
                     self.auth()
@@ -44,18 +45,22 @@ class Client:
                 elif self.status == "success":
                     self.success()
                 else:
-                    msg = input(f"{self.username}> ")
-                    if msg != "":
-                        if msg == "exit":
-                            self.status = "finish"
-                            print(f"Разрыв соединения {self.sock.getsockname()} с сервером")
-                            logging.info(f"Разрыв соединения {self.sock.getsockname()} с сервером")
-                            break
+                    user_input = input(f"{self.username}> ")
+                    if user_input != "":
+                        if user_input == "exit":
+                            print(f"Разрыв соединения {self.sock.getsockname()} с сервером по команде")
+                            logging.info(f"Разрыв соединения {self.sock.getsockname()} с сервером по команде")
+                            close_connection = pickle.dumps(["exit", "Разрыв соедиенения", self.username])
+                            self.sock.send(close_connection)
+                            self.sock.close()
+                            sys.exit(0)
+                        elif user_input == "shutdown":
+                            shutdown_server = pickle.dumps(["shutdown", "Отключение сервера", self.username])
+                            self.sock.send(shutdown_server)
                         # Отправляем сообщение и имя клиента
-                        send_message = pickle.dumps(["message", msg, self.username])
+                        send_message = pickle.dumps(["message", user_input, self.username])
                         self.sock.send(send_message)
-                        logging.info(f"Отправка данных от {self.sock.getsockname()} на сервер: {msg}")
-        self.sock.close()
+                        logging.info(f"Отправка данных от {self.sock.getsockname()} на сервер: {user_input}")
 
     def receive_data(self):
         # Поток получения и обработки данных от сервера
