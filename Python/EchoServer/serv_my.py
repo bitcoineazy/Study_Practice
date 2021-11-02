@@ -7,6 +7,10 @@ from utilities import COLORS, EMOJIS, EMOJIS_PATTERN, SocketMethods, Security
 
 logging.basicConfig(filename='server_logs.log', level=logging.INFO)
 
+users = {}
+logins = {}
+connections_list = []
+
 
 class ClientThread(Thread):
     def __init__(self, connection, address):
@@ -14,25 +18,20 @@ class ClientThread(Thread):
         self.connected = True
         self.conn = connection
         self.addr = address
-        self.username = 'UNSET'
+        self.username = None
         self.color = random.choice(COLORS)
         self.login()
 
     def login(self):
-        token = self.receive_msg()
-        self.send_msg('Enter your name')
+        self.send_msg('Введите имя пользователя')
         name = self.receive_msg()
         self.username = name
         if name in users.keys():
-            if logins[self.addr[0]] == name and users[name]['token'] == token:
+            self.send_msg('Enter password')
+            if users[name]['password'] == Security.get_password_hash(self.receive_msg()):
                 self.success_login()
             else:
-                self.send_msg('Enter password')
-                if users[name]['password'] == Security.get_password_hash(self.receive_msg()):
-                    self.success_login()
-
-                else:
-                    self.close_connection('incorrect password')
+                self.close_connection('incorrect password')
         else:
             self.send_msg('Set new password')
             users.update({name: {'password': Security.get_password_hash(self.receive_msg())}})
@@ -42,10 +41,6 @@ class ClientThread(Thread):
 
     def success_login(self):
         self.send_msg(f'Success login')
-        new_token = Security.get_new_token()
-        self.send_msg('//token')
-        self.send_msg(new_token)
-        users[self.username]['token'] = new_token
         save_users()
 
     def close_connection(self, reason='', only_server=False):
@@ -94,16 +89,11 @@ def save_logins():
         json.dump(logins, file)
 
 
-users = {}
-logins = {}
-connections_list = []
-
-
 def send_msg_all(message):
     [i.send_msg(message) for i in connections_list]
 
 
-def service_msg(user: 'ClientThread', message):
+def service_msg(user, message):
     [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in connections_list if i != user]
 
 
@@ -112,8 +102,8 @@ def _emoji_replace(match):
     return EMOJIS.get(mg, f':{mg}:')
 
 
-def emoji_replace(cls, s):
-    return EMOJIS_PATTERN.sub(cls._emoji_replace, s)
+def emoji_replace(s):
+    return EMOJIS_PATTERN.sub(_emoji_replace, s)
 
 
 if __name__ == '__main__':
