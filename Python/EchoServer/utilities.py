@@ -23,19 +23,14 @@ class Security:
     def get_password_hash(password: str) -> str:
         return hashlib.sha512(password.encode('utf-8') + SALT).hexdigest()
 
-    @staticmethod
-    def get_new_token() -> str:
-        return hashlib.sha512(str(random.randint(-2147483648, 2147483647)).encode('utf-8') + SALT).hexdigest()
-
 
 class SocketMethods:
     def receive_text(conn):
-        msg_len = int(conn.recv(4), 16)
-        return conn.recv(msg_len).decode(ENCODING)
+        return conn.recv(1024).decode(ENCODING)
 
     def send_text(conn, message):
         message = message.encode(ENCODING)
         msg_len = hex(len(message))[2:]
         msg_len = '0' * (4 - len(msg_len)) + msg_len
         msg_len = msg_len.encode(ENCODING)
-        conn.send(msg_len + message)
+        conn.send(message)
