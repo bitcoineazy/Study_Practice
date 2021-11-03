@@ -12,8 +12,10 @@ def Start():
         with open('Setting.txt', 'a+', encoding="utf-8") as f:
             f.seek(0, 0)
             for i in f.readlines():
+                if i == '\n':
+                    continue
                 s = i.split()
-                if name == s[0]:
+                if s[0] == name:
                     return name
             else:
                 f.write(f'{name} None\n')
