@@ -5,13 +5,12 @@ from threading import Thread
 import logging
 import hashlib
 
-logging.basicConfig(filename='server_logs.log', level=logging.INFO)
+logging.basicConfig(format="%(asctime)s [%(levelname)s] %(funcName)s: %(message)s",
+                    handlers=[logging.FileHandler("logs/server.log"), logging.StreamHandler()], level=logging.INFO)
 
-users = {}
-logins = {}
-connections_list = []
-ENCODING = 'utf-8'
-SALT = 'salt'.encode('utf-8')
+USERS = {}
+CONNECTIONS_LIST = []
+SALT = 'random_salt'.encode('utf-8')
 COLORS = ['\33[31m', '\33[32m', '\33[33m', '\33[34m', '\33[35m', '\33[36m', '\33[91m', '\33[92m', '\33[93m', '\33[94m',
           '\33[95m', '\33[96m']
 
@@ -30,18 +29,16 @@ class ClientThread(Thread):
         self.send_msg('Введите имя пользователя')
         name = self.receive_msg()
         self.username = name
-        if name in users.keys():
+        if name in USERS.keys():
             self.send_msg('Enter password')
-            if users[name]['password'] == get_password_hash(self.receive_msg()):
+            if USERS[name]['password'] == get_password_hash(self.receive_msg()):
                 self.success_login()
             else:
                 self.close_connection('incorrect password')
         else:
             self.send_msg('Set new password')
-            users.update({name: {'password': get_password_hash(self.receive_msg())}})
+            USERS.update({name: {'password': get_password_hash(self.receive_msg())}})
             save_users()
-        logins.update({addr[0]: name})
-        save_logins()
 
     def success_login(self):
         self.send_msg(f'Success login')
@@ -50,8 +47,9 @@ class ClientThread(Thread):
     def close_connection(self, reason=''):
         logging.info(f'Connection closed {self.addr} {" - " + reason if reason else ""}')
         self.connected = False
-        if self in connections_list:
-            connections_list.remove(self)
+        send_msg_all(f"{self.username} покинул чат")
+        if self in CONNECTIONS_LIST:
+            CONNECTIONS_LIST.remove(self)
 
     def send_msg(self, message):
         if self.connected:
@@ -66,7 +64,7 @@ class ClientThread(Thread):
             self.close_connection('connection error')
 
     def run(self):
-        connections_list.append(self)
+        CONNECTIONS_LIST.append(self)
         self.send_msg(f'{self.username}, welcome to chat')
         service_msg(self, 'joined the chat')
 
@@ -80,20 +78,15 @@ class ClientThread(Thread):
 
 def save_users():
     with open('users.json', 'w') as f:
-        json.dump(users, f, indent=4)
-
-
-def save_logins():
-    with open('logins.json', 'w') as f:
-        json.dump(logins, f, indent=4)
+        json.dump(USERS, f, indent=4)
 
 
 def send_msg_all(message):
-    [i.send_msg(message) for i in connections_list]
+    [i.send_msg(message) for i in CONNECTIONS_LIST]
 
 
 def service_msg(user, message):
-    [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in connections_list if i != user]
+    [i.send_msg(f'\33[4m{user.username} {message}\33[0m') for i in CONNECTIONS_LIST if i != user]
 
 
 def get_password_hash(password):
@@ -101,11 +94,11 @@ def get_password_hash(password):
 
 
 def receive_text(conn):
-    return conn.recv(1024).decode(ENCODING)
+    return conn.recv(1024).decode('utf-8')
 
 
 def send_text(conn, message):
-    message = message.encode(ENCODING)
+    message = message.encode('utf-8')
     conn.send(message)
 
 
@@ -123,16 +116,13 @@ if __name__ == '__main__':
     sock.listen(10)
     try:
         with open('users.json', 'r') as file:
-            users = json.load(file)
+            USERS = json.load(file)
     except json.decoder.JSONDecodeError:
-        users = {}
-    with open('logins.json', 'r') as file:
-        logins = json.load(file)
+        USERS = {}
     while True:
         # Создать новые потоки для пользователей
         conn, addr = sock.accept()
         print(f'Opening connection {addr} ')
         logging.info(f'Opening connection {addr} ')
         thread = ClientThread(conn, addr)
-
         thread.start()
