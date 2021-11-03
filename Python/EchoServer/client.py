@@ -49,6 +49,7 @@ try:
 except (socket.gaierror, ConnectionRefusedError) as e:
     print(f"Не удается подключиться к {host}:{port} ({e})!")
 
+# Поток для прослушивания информации с сервера
 Thread(target=receive_messages, daemon=True).start()
 
 while True:
