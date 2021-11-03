@@ -1,5 +1,2 @@
 admin C:\Users\AndroidS\PycharmProjects\File_M\new_dir_test
-noneme C:\Users\AndroidS\PycharmProjects\File_M\hi\world
-nik C:\Users\AndroidS\PycharmProjects\Study_Practice\Новая_папка
-nik2 C:\Users\AndroidS\PycharmProjects\Study_Practice\Новая_папка
 
