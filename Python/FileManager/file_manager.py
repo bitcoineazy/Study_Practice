@@ -6,7 +6,11 @@ from distutils.dir_util import copy_tree
 
 class FileManager:
     def __init__(self):
-        self.root_directory = "/home/noble6/File_manager_directory"
+        with open('working_directory.txt', mode='r') as f:
+            self.root_directory = fr'{f.readline()}'  # Директория, в которой работаем
+        os.chdir(self.root_directory)  # Меняем рабочий каталог программы
+        # Фиксация изначальной длины рабочей директории для безопасного перемещения вверх (ф-ия move_up)
+        self.path_length = len(self.root_directory.split('/'))
         self.display_data = []
         self.allowed_files = self.list_directory()[1]  # Объекты в разрешенной для изменения директории
 
@@ -59,7 +63,7 @@ class FileManager:
         directory_id = int(input('Введите ID директории чтобы удалить: '))
         directory_name = self.id_choice(directory_id)
         try:
-            shutil.rmtree(f'{self.root_directory}/{location}')  # Удалить директорию и все файлы в ней
+            shutil.rmtree(f'{self.root_directory}/{directory_name}')  # Удалить директорию и все файлы в ней
         except OSError as e:
             print(f'Error: {e.filename} - {e.strerror}')
         else:
@@ -67,7 +71,7 @@ class FileManager:
             self.refresh_directory()
 
     def delete_file(self):
-        file_id = int(input('Введите ID файла чтобы удалить'))
+        file_id = int(input('Введите ID файла чтобы удалить: '))
         file_name = self.id_choice(file_id)
         try:
             os.remove(f"{self.root_directory}/{file_name}")
@@ -80,15 +84,26 @@ class FileManager:
     def move_between_directories(self):  # Перемещение по разрешенным директориям
         chosen_directory = int(input('Введите ID директории чтобы переместиться: '))
         location = self.id_choice(chosen_directory)
-        self.root_directory += f'/{location}'
-        self.refresh_directory()
+        move_path = self.root_directory + f'/{location}'
+        if os.path.isdir(move_path):
+            self.root_directory += f'/{location}'
+            os.chdir(self.root_directory)
+            self.refresh_directory()
+            print(f'Успешный переход в директорию {location}\nТекущий путь: {self.root_directory}')
+        else:
+            print(f'Попытка перехода в файл!\n{location} - файл, а не директория')
 
     def move_up(self):  # Подняться вверх по директории
         location = self.root_directory.split('/')
-        location.pop()
-        up = '/'.join(location)
-        self.root_directory = up
-        self.refresh_directory()
+        if self.path_length < len(location):
+            location.pop()
+            up = '/'.join(location)
+            self.root_directory = up
+            os.chdir(self.root_directory)
+            self.refresh_directory()
+            print(f'Успешный переход в директорию {location[-1]}\nТекущий путь: {self.root_directory}')
+        else:
+            print('Ошибка доступа!\nНевозможно переместиться выше заданной корневой директории')
 
     def rename_file(self):
         file_id = int(input('Введите ID файла, чтобы переименовать: '))
@@ -127,6 +142,24 @@ class FileManager:
         else:
             print('Успешное перемещение')
 
+    def create_archive(self):  # zip-архивация
+        file_id = int(input('Введите ID файла или директории для создания zip-архива: '))
+        location = self.id_choice(file_id)
+        try:
+            archive = shutil.make_archive(
+                base_name=str(input('Введите новое название архива: ')), base_dir=location, format='zip')
+            print(f"zip-архив {archive} создан")
+        except FileNotFoundError as err:
+            print(err)
+
+    def extract_archive(self):  # zip-разархивация
+        file_id = int(input('Введите ID файла архива для разархивации zip-архива: '))
+        location = self.id_choice(file_id)
+        try:
+            shutil.unpack_archive(location, format='zip')
+        except shutil.ReadError as err:
+            print(err)
+
     def refresh_directory(self):
         self.allowed_files = self.list_directory()[1]
 
@@ -144,20 +177,21 @@ class FileManager:
                         stralign='center')
         return data, self.display_data
 
-    def id_choice(self, object_id):
+    def id_choice(self, object_id):  # Получение имени файла по его ID
         ids = [i[2] for i in self.allowed_files]
         names = [i[1] for i in self.allowed_files]
         if str(object_id) in ids:
             return names[object_id - 1]
 
     def CLI(self):
-        print('-----------Файловый менеджер-----------\n')
+        print(f'{"-"*15}Файловый менеджер{"-"*15}\n')
         commands = [['1', 'Просмотр директории'], ['2', 'Создать папку'], ['3', 'Удалить папку'],
                     ['4', 'Переход между директориями'], ['5', 'Создать пустой файл'], ['6', 'Запись текста в файл'],
                     ['7', 'Просмотр текстового файла'], ['8', 'Удалить файл'], ['9', 'Копирование из папки в папку'],
-                    ['10', 'Перемещение файлов'], ['11', 'Переименовать файл']]
+                    ['10', 'Перемещение файлов'], ['11', 'Переименовать файл'], ['12', 'Архивировать файл/директорию'],
+                    ['13', 'Разархивировать файл/директорию'], ['14', 'Подняться вверх по директории (cd ..)']]
         help_page = tabulate((i for i in commands), headers=['ID', 'Метод'], tablefmt='github', stralign='center')
-        print(help_page)
+        print(help_page + f'\n\nРабочая директория настроена: {self.root_directory}')
         while True:
             choose = str(input(
                 '\nhelp - список команд, exit - выйти из файлового менеджера\nВведите ID команды чтобы продолжить: '))
@@ -184,6 +218,12 @@ class FileManager:
                 self.move_files()
             if choose == '11':
                 self.rename_file()
+            if choose == '12':
+                self.create_archive()
+            if choose == '13':
+                self.extract_archive()
+            if choose == '14':
+                self.move_up()
             if choose.lower() == 'help':
                 print(f'\n{help_page}')
             if choose.lower() == 'exit':
