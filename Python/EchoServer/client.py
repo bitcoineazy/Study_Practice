@@ -30,6 +30,7 @@ def send_text(conn, message):
 
 
 try:
+    print("Для использованиия настроик по умолчанию ничего не вводите")
     host = input_check("Введите имя хоста: ")
     if not host:
         host = '127.0.1.1'
