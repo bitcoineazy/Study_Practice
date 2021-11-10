@@ -14,3 +14,4 @@ from func.Archive_create import *
 from func.Archive_form import *
 from func.Nuarchive_form import *
 from func.Unarchive import *
+from func.Copy_file import *

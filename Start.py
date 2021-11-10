@@ -24,6 +24,8 @@ def Start():
     work_path = get_work_path(name)
     if 'None' in work_path:
         work_path = input('Set path for dir: ')
+        if not os.path.isabs(work_path):
+            work_path = os.path.abspath(work_path)
         with open('Setting.txt', 'r+', encoding="utf-8") as f:
             k = f.readlines()
             for i in range(len(k)):

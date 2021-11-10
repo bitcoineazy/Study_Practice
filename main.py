@@ -11,8 +11,8 @@ HELP = f"""Файловый менеджер - программа для про�
 """
 comand_name = ['ctdir', 'getcom', "Exit", 'help', 'cominf',
                'deldir', 'cdd', 'lsdir', 'ctfile', 'nano2',
-               'cutfile', 'delfile', 'mvfile', 'refile', 'ctarch',
-               'unarch', 'getafor', 'unafor']
+               'cutfile', 'delfile', 'mvfile', 'copyfile', 'refile',
+               'ctarch', 'unarch', 'getafor', 'unafor']
 COMINF = """-----
 help: общая справка
 getcom: показывает доступные команды
@@ -26,7 +26,8 @@ nano2 [path, mod]: открывает файл для дозаписи mod='a'(�
 cutfile [path]: выврд содержимого файла
 delfile [path]: удаляет файл по указанному пути
 mvfile [path_out, path_to]: path_out - файл для перемешения, path_to - директория куда переместить
-refile [path]: переименовывает файл
+copyfile [path_out, path_to]: path_out - файл для копирования, path_to - директория, файл куда копировать
+refile [path new_name]: Присваивает файлу по пути path новое имя new_name
 ctarch [name path]: создает архив с именем name из содержимого директории path 
         формат архивов только zip
 unarch [path extract_dir=текушая_директория format=пытается_угадать_сам]: 
@@ -64,7 +65,7 @@ functioninc = [obj for (name, obj) in vars().items()
 dictcommand = dict(zip(nameoffunc, functioninc))
 
 #print([name for (name, obj) in vars().items() if hasattr(obj, "__class__") and obj.__class__.__name__ == "function"])
-#print(dictcommand)
+print(dictcommand)
 
 
 if __name__ == '__main__':
