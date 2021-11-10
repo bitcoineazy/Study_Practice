@@ -1,4 +1,12 @@
----
+## Работа многопоточного сервера
+
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/threaded_server_1.jpg)
+
+## Работа сканнера портов
+
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/port_scanner_1.jpg)
+
+
 
 ### Контрольные вопросы на «Создание простого многопоточного сервера»
 1. Почему однопоточное приложение не может решить задачу одновременного подключения?
