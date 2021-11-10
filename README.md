@@ -14,6 +14,13 @@
 
 
 ### Контрольные вопросы на «Основы работы с СКВ в графическом режиме»
+
+[Репозиторий](https://github.com/bitcoineazy/0_git_basics)
+
+Итог работы - pull request и контрибуция в организацию fa-python-network
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/pull_request_1.jpg)
+
+
 1. Опишите своими словами следующие термины:
    * рабочий каталог
    >*Ответ: папка с файлами проекта*
