@@ -1,3 +1,5 @@
+## Работа Эхо-сервера и клиента
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/echo_server_1.jpg)
 
 ### Контрольные вопросы на «TCP-клиент и эхо-сервер»
 1. Чем отличаются клиентские и серверные сокеты?
