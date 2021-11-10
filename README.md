@@ -16,8 +16,16 @@
 ### Контрольные вопросы на «Основы работы с СКВ в графическом режиме»
 
 [Репозиторий](https://github.com/bitcoineazy/0_git_basics)
-
-Итог работы - pull request и контрибуция в организацию fa-python-network
+1. Создание профиля на гитхаб
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/github.jpg)
+2. Склонировать удалённый репозиторий полученный через fork
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/git_clone_1.jpg)
+3. Создать новый файл в репозитории и записать в него информацию, затем добавить через git add . в контроль версий и сделать коммит для дальнейшего пуша в удалённый репозиторий
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/push_1.jpg)
+4. После обновления репозитория можно сделать pull request через веб-интерфейс в изначальный репозиторий автора, чтобы произвести слияние.
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/open_pull_1.jpg)
+![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/open_pull_2.jpg)
+5. Итог работы - pull request и контрибуция в организацию fa-python-network
 ![alt text](https://github.com/bitcoineazy/Study_Practice/blob/main/images/pull_request_1.jpg)
 
 
