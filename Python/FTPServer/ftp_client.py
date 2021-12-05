@@ -5,13 +5,15 @@ import sys
 import logging
 import pickle
 import time
+import os
+import base64
 
 
 class Client:
     def __init__(self, server_ip, server_port):
         self.server_ip = server_ip
         self.server_port = server_port
-        # состояние для обработки входящих пакетов
+        self.client_storage = os.path.join(os.getcwd(), "client_storage")
         self.server_connection()
         self.server_sync()
 
@@ -44,6 +46,9 @@ class Client:
                     self.send_passwd()
                 elif self.status == "success":
                     self.success()
+                elif self.status == "server_client":
+                    raw_data, file_name = self.data[0], self.data[1]
+                    self.server_client_transfer(file_name, raw_data)
                 else:
                     user_input = input(f"{self.username}> ")
                     if user_input != "":
@@ -56,6 +61,39 @@ class Client:
                         elif user_input == "mkdir":
                             mkdir = pickle.dumps(["mkdir", str(input("Введите название новой директории: ")), self.username])
                             self.sock.send(mkdir)
+                        elif user_input == "rmdir":
+                            rmdir = pickle.dumps(["rmdir", str(input("Введите название директории для удаления: ")), self.username])
+                            self.sock.send(rmdir)
+                        elif user_input == "rm":
+                            rm = pickle.dumps(["rm", str(input("Введите название файла для удаления: ")), self.username])
+                            self.sock.send(rm)
+                        elif user_input == "rename":
+                            rename = pickle.dumps(["rename", [str(input("Введите название файла, чтобы переименовать: ")),
+                                                              str(input("Введите новое название файла: "))], self.username])
+                            self.sock.send(rename)
+                        elif user_input == "cat":
+                            file_name = str(input("Введите название файла чтобы прочитать: "))
+                            cat = pickle.dumps(["cat", file_name, self.username])
+                            self.sock.send(cat)
+                        elif user_input == "cd":
+                            directory_name = str(input("Введите название директории чтобы переместиться: "))
+                            cd = pickle.dumps(["cd", directory_name, self.username])
+                            self.sock.send(cd)
+                        elif user_input == "cd ..":
+                            cd_up = pickle.dumps(["cd ..", "move up", self.username])
+                            self.sock.send(cd_up)
+                        elif user_input == "copy to server":
+                            file_name = str(input(
+                                "Введите название файла в директории client_storage для копирования на сервер: "))
+                            copy_client_server = pickle.dumps(["client_server", [self.client_server_transfer(file_name), file_name], self.username])
+                            self.sock.send(copy_client_server)
+                        elif user_input == "copy from server":
+                            ls = pickle.dumps(
+                                ["ls", "Файлы в директории", self.username])
+                            self.sock.send(ls)
+                            file_name = str(input("Введите название файла чтобы скопировать с сервера в директорию client_storage: "))
+                            copy_server_client = pickle.dumps(["server_client", file_name, self.username])
+                            self.sock.send(copy_server_client)
                         elif user_input == "exit":
                             print(f"Разрыв соединения {self.sock.getsockname()} с сервером по команде")
                             logging.info(f"Разрыв соединения {self.sock.getsockname()} с сервером по команде")
@@ -89,6 +127,22 @@ class Client:
                     self.data = pickle.loads(self.data)[1]
             except OSError:
                 break
+
+    def server_client_transfer(self, file_name, file_content):
+        # Копирование файла с сервера на клиент
+        try:
+            data = base64.b64decode(file_content)
+            with open(f"{self.client_storage}{os.sep}{file_name}", "w+") as f:
+                f.write(data.decode("utf-8"))
+        except Exception as e:
+            logging.error(str(e))
+
+    def client_server_transfer(self, file_name):
+        try:
+            with open(f"{self.client_storage}{os.sep}{file_name}", "rb") as f:
+                return base64.b64encode(f.read()).decode("utf-8")
+        except (FileNotFoundError, IndexError, IsADirectoryError):
+            logging.error("Произошла ошибка при копировании файла с клиента на сервер")
 
     def send_passwd(self):
         # Отправка пароля на сервер
