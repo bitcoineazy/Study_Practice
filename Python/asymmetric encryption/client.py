@@ -10,14 +10,14 @@ def Cdec(mes, k):
     return [chr((65536 + (ord(i) - k) % 65536) % 65536) for i in mes]
 
 class Cryptographer:
-    def __init__(self, g=10, p=5, rmin=1, rmax=10):
+    def __init__(self, g=11, p=50, rmin=1, rmax=10):
         self.g = g
         self.p = p
         self.secret_key = random.randint(rmin, rmax)
 
     def CreateOpenKey(self):
         '''Создает открытый ключ'''
-        self.open_key = self.g ** self.secret_key % self.p
+        self.open_key = (self.g ** self.secret_key) % self.p
         return self.open_key, self.g, self.p
 
     def Decrypt(self, B):
@@ -31,24 +31,35 @@ class Cryptographer:
         return g ** self.secret_key % p, A ** self.secret_key % p
 
 Cr= Cryptographer()
+
+ip = 'localhost'
+port = 9090
 sock = socket.socket()
-sock.connect(('localhost', 9090))
+sock.connect((ip, port))
+print(f'---\nConnect to server\nip: {ip}\nport: {port}')
 
 sock.send(pickle.dumps(["open_key", Cr.CreateOpenKey()]))
+print(f'Send open key: {Cr.CreateOpenKey()}')
 
 data = sock.recv(1024)
 data = pickle.loads(data)
+print(f'Get Server open key: {data[1]}')
+
 if data[0] == 'open_key':
     OpenKey = data[1]
     SharedKeyClient = Cr.Decrypt(data[2])
+print(f'Create SharedKeyClient: {Cr.Decrypt(data[2])}\n---')
 
 while True:
 
     mesout = input('>')
-    print("---")
+
     (B, K) = Cr.CreateSharedKey(*OpenKey)
     data = ["", Cenc(Cenc(mesout, SharedKeyClient), K), B]
+    print(f'Send cipher: {data[1]}')
     sock.send(pickle.dumps(data))
+    print(f'---')
+
     if "exit" in mesout.lower():
         sock.close()
         exit()
@@ -57,9 +68,11 @@ while True:
     data = sock.recv(1024)
     data = pickle.loads(data)
     mesin = data[1]
+    print(f'Get message: {mesin}')
+    print(f'Encryption')
     mesin = 'Server: '+''.join(Cdec(Cdec(mesin, SharedKeyClient), K))
     print(mesin)
-
+    print(f'---')
     if "exit" in mesin.lower():
         sock.close()
         exit()
