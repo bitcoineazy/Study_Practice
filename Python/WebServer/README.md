@@ -19,7 +19,7 @@
 - Страница с JS-скриптом (http://localhost:9090/script)
 ![img](https://github.com/bitcoineazy/Study_Practice/blob/main/images/web_server_script.jpg) 
 
-- Страница с png картинкой
+- Страница с png картинкой (http://localhost:9090/web.png)
 ![img](https://github.com/bitcoineazy/Study_Practice/blob/main/images/web_server_image.jpg) 
 
 - Логи веб-сервера
