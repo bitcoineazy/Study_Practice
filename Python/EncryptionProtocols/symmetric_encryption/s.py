@@ -27,7 +27,8 @@ def Chahack(mes):
             plist.append(k)
     for ch in plist:
         yield [chr((65536 + (ord(i) - (ord(ch) - ord(" ")) % 65536)) % 65536) for i in mes]
-print(*[''.join(i) for i in list(Chahack(a))],sep="\n")
+print(*[''.join(i) for i in list(Chahack(a))], sep="\n")
+
 
 def Venc(k,m):
     k = k * (len(m) // len(k)) + k[:len(m) % len(k)]
