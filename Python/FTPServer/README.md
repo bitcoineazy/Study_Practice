@@ -1,5 +1,6 @@
 # FTP-сервер
 Лабораторная работа № 7
+[“FTP-сервер”](https://github.com/fa-python-network/5_FTP_server)
 
 ## Работа FTP-сервера и клиента
 
