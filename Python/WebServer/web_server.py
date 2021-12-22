@@ -60,9 +60,9 @@ class Client(Thread):
                     with LOCK:
                         logging.info(f"| {self.host} | {webpage} | 403")
             if "Content-type: image/" in response:
-                self.conn.sendall(response.encode() + content)
+                self.conn.send(response.encode() + content)
             else:
-                self.conn.sendall(response.encode())
+                self.conn.send(response.encode())
         self.conn.close()
 
 
