@@ -2,11 +2,19 @@
 
 Репозиторий для практикумов
 
-[«Файловый менеджер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/FileManager) — написание программы, имитирующей работу файлового менеджера операционной системы.
+2. [«Файловый менеджер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/FileManager) — написание программы, имитирующей работу файлового менеджера операционной системы.
 
-[«TCP-клиент и эхо-сервер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/EchoServer) — создание клиент-серверной архитектуры по принципу эхо-сервера.
+3. [«TCP-клиент и эхо-сервер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/EchoServer) — создание клиент-серверной архитектуры по принципу эхо-сервера.
 
-[«Создание простого многопоточного сервера»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/ThreadedServer) — реализация сервера с возможностью многопоточной работы с клиентом.
+4. [«Создание простого многопоточного сервера»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/ThreadedServer) — реализация сервера с возможностью многопоточной работы с клиентом.
+
+5. [«Протоколы шифрования»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/EncryptionProtocols) — асимметричное и симметричное шифрование.
+
+6. [«Низкоуровневая работа с веб»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/WebServer) — веб-сервер.
+
+7. [«FTP-сервер»](https://github.com/bitcoineazy/Study_Practice/tree/main/Python/FTPServer) — сервер, который предоставляет клиенту базовые возможности файлового менеджера по сети.
+
+8. [«Создание микросервиса»](https://github.com/bitcoineazy/MicroService) — REST API для работы с пользователями.
 
 ---
 
