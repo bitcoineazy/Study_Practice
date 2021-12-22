@@ -88,9 +88,6 @@ class Client:
                             copy_client_server = pickle.dumps(["client_server", [self.client_server_transfer(file_name), file_name], self.username])
                             self.sock.send(copy_client_server)
                         elif user_input == "copy from server":
-                            ls = pickle.dumps(
-                                ["ls", "Файлы в директории", self.username])
-                            self.sock.send(ls)
                             file_name = str(input("Введите название файла чтобы скопировать с сервера в директорию client_storage: "))
                             copy_server_client = pickle.dumps(["server_client", file_name, self.username])
                             self.sock.send(copy_server_client)

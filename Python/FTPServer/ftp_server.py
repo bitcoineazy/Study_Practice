@@ -148,7 +148,7 @@ class Server:
                             ["message", f'Файл "{file_name}" успешно удалён',
                              "~SERVER~"]))
                 elif status == "rename":
-                    file_name, new_file_name = data[1][0], data[1][1]
+                    file_name, new_file_name = data[0], data[1]
                     logging.info(
                         f"{username} запросил переименовать файл {file_name} в {new_file_name}")
                     try:
